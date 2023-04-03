@@ -14,7 +14,7 @@ public class MyClient {
     String serverMessage = "empty";
     String lastServerMessage = "empty";
     String tempString = "empty";
-    int numServers = 1;
+    int numServers = 0;
     String largestServerType;
     int largestCore = 0;
     int loop = 0;
@@ -66,7 +66,9 @@ public class MyClient {
 
             String[] jobStatus = tempString.split(" ");
 
+
             lastServerMessage = jobStatus[0];
+            
             jobID = Integer.parseInt(jobStatus[2]);
 
             System.out.println("Server Message: " + lastServerMessage);
@@ -102,7 +104,7 @@ public class MyClient {
                         largestServerType = splitRecord[0];
                     }
 
-                    if (largestServerType.equals(splitRecord[0])) {
+                     if (largestServerType.equals(splitRecord[0])) { // added else
                         numServers++;
                     }
 
@@ -113,16 +115,17 @@ public class MyClient {
                 // receive .
                 System.out.println("Server Message: " + this.inputStream.readLine());
 
+               
             }
 
-            loop++;
+           
 
 
             if (lastServerMessage.equals("JOBN")) {
                 
                     send("SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
-                  
-                
+                    System.out.println("Server Message: " + "SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
+                serverID++;
             }
            
         }
@@ -131,6 +134,8 @@ public class MyClient {
         send("QUIT");
         // receive QUIT
         System.out.println("Server says: " + this.inputStream.readLine());
+
+        loop++;
     }
 
 }
