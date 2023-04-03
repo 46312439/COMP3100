@@ -119,10 +119,10 @@ public class MyClient {
 
 
             if (lastServerMessage.equals("JOBN")) {
-                while (serverID < numServers) {
-                    send("SCHD" + jobID + " " + largestServerType + " " + serverID%numServers);
-                    serverID++;
-                }
+                
+                    send("SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
+                  
+                
             }
            
         }
