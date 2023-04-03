@@ -62,7 +62,7 @@ public class MyClient {
           
             tempString = this.inputStream.readLine();
 
-            
+        
 
             String[] jobStatus = tempString.split(" ");
 
@@ -128,15 +128,31 @@ public class MyClient {
                 
                     send("SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
                     System.out.println("Server Message: " + "SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
-               if(serverID<numServers){
+               
                     serverID++;
-               }
+               
+
+                //OK
+                System.out.println("Server Message: " + this.inputStream.readLine());
             }
-            //OK
-            System.out.println("Server Message: " + this.inputStream.readLine());
+            else if(lastServerMessage.equals("JCPL")){
+
+              
+                
+                continue;
+
+
+            }
+
+           
 
            
         }
+
+
+
+
+
         System.out.println("Server says: " + this.inputStream.readLine());
         // send QUIT
         send("QUIT");
