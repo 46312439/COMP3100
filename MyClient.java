@@ -69,7 +69,7 @@ public class MyClient {
 
             lastServerMessage = jobStatus[0];
             
-            jobID = Integer.parseInt(jobStatus[2]);
+         
 
             System.out.println("Server Message: " + lastServerMessage);
 
@@ -125,6 +125,8 @@ public class MyClient {
 
 
             if (lastServerMessage.equals("JOBN")) {
+
+                jobID = Integer.parseInt(jobStatus[2]);
                 
                     send("SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
                     System.out.println("Server Message: " + "SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
@@ -135,14 +137,7 @@ public class MyClient {
                 //OK
                 System.out.println("Server Message: " + this.inputStream.readLine());
             }
-            else if(lastServerMessage.equals("JCPL")){
-
-              
-                
-                continue;
-
-
-            }
+        
 
            
 
@@ -152,8 +147,6 @@ public class MyClient {
 
 
 
-
-        System.out.println("Server says: " + this.inputStream.readLine());
         // send QUIT
         send("QUIT");
         // receive QUIT
