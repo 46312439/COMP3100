@@ -74,6 +74,7 @@ public class MyClient {
             System.out.println("Server Message: " + lastServerMessage);
 
             if (loop == 0) {
+                loop++;
 
                 send("GETS All"); // send GETS message
 
@@ -101,10 +102,12 @@ public class MyClient {
                     // keep track of largest server type and number of servers of that type
                     if (currCore > largestCore) {
                         largestCore = currCore;
+                        numServers = 0;
                         largestServerType = splitRecord[0];
+                        numServers++;
                     }
 
-                     if (largestServerType.equals(splitRecord[0])) { // added else
+                     else if (largestServerType.equals(splitRecord[0])) { // added else
                         numServers++;
                     }
 
@@ -118,15 +121,20 @@ public class MyClient {
                
             }
 
-           
+            System.out.println("Server amount: " + numServers);
 
 
             if (lastServerMessage.equals("JOBN")) {
                 
                     send("SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
                     System.out.println("Server Message: " + "SCHD " + jobID + " " + largestServerType + " " + serverID%numServers);
-                serverID++;
+               if(serverID<numServers){
+                    serverID++;
+               }
             }
+            //OK
+            System.out.println("Server Message: " + this.inputStream.readLine());
+
            
         }
         System.out.println("Server says: " + this.inputStream.readLine());
@@ -135,7 +143,7 @@ public class MyClient {
         // receive QUIT
         System.out.println("Server says: " + this.inputStream.readLine());
 
-        loop++;
+        
     }
 
 }
