@@ -69,45 +69,39 @@ public class MyClient1 {
 
             System.out.println("Server Message: " + lastServerMessage);
 
-            send("GETS Capable " + jobStatus[4] + jobStatus[5] + jobStatus[6]); // send GETS message
-
-            // receive DATA nRecs recSize e.g. DATA 5 124
-            tempString = this.inputStream.readLine();
-            
-            String[] tempArray = tempString.split(" ");
-
-            numServers = Integer.parseInt(tempArray[1]);
-            
-
-            System.out.println("Server message " + serverMessage);
-            // send OK
-            send("OK");
-
-            serverMessage = this.inputStream.readLine();
-
-            String[] serverInfo = serverMessage.split(" ");
-
-            firstCapableServerID =  Integer.parseInt(serverInfo[1]);
-            firstCapableServerType = serverInfo[0];
-
-            for(int i = 0; i < numServers-1; i++){
-                serverMessage = this.inputStream.readLine();
-            }
-
-            // send OK
-            send("OK");
-            // receive .
-            System.out.println("Server Message: " + this.inputStream.readLine());
-
             if (lastServerMessage.equals("JOBN")) {
 
                 jobID = Integer.parseInt(jobStatus[2]);
 
-                if (firstCapableServerType != null) {
-                    send("SCHD " + jobID + " " + firstCapableServerType + " " +firstCapableServerID);
-                  
-        
+                send("GETS Capable " + jobStatus[4] + jobStatus[5] + jobStatus[6]); // send GETS message
+
+                // receive DATA nRecs recSize e.g. DATA 5 124
+                tempString = this.inputStream.readLine();
+
+                String[] tempArray = tempString.split(" ");
+
+                numServers = Integer.parseInt(tempArray[1]);
+                
+                // send OK
+                send("OK");
+
+                serverMessage = this.inputStream.readLine();
+
+                String[] serverInfo = serverMessage.split(" ");
+
+                firstCapableServerID = Integer.parseInt(serverInfo[1]);
+                firstCapableServerType = serverInfo[0];
+
+                for (int i = 0; i < numServers - 1; i++) {
+                    serverMessage = this.inputStream.readLine();
                 }
+
+                // send OK
+                send("OK");
+                // receive .
+                System.out.println("Server Message: " + this.inputStream.readLine());
+
+                send("SCHD " + jobID + " " + firstCapableServerType + " " + firstCapableServerID);
 
                 // OK
                 System.out.println("Server Message: " + this.inputStream.readLine());
