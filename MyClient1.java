@@ -20,6 +20,7 @@ public class MyClient1 {
     String firstCapableServerType;
     int loop = 0;
 
+
     public void send(String message) throws Exception {
         this.outStream.write((message + "\n").getBytes("UTF-8"));
     }
@@ -80,8 +81,8 @@ public class MyClient1 {
 
                 String[] tempArray = tempString.split(" ");
 
-                numServers = Integer.parseInt(tempArray[1]);
-                
+                nRecs = Integer.parseInt(tempArray[1]);
+
                 // send OK
                 send("OK");
 
@@ -92,7 +93,7 @@ public class MyClient1 {
                 firstCapableServerID = Integer.parseInt(serverInfo[1]);
                 firstCapableServerType = serverInfo[0];
 
-                for (int i = 0; i < numServers - 1; i++) {
+                for (int i = 0; i < nRecs - 1; i++) {
                     serverMessage = this.inputStream.readLine();
                 }
 
