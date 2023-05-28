@@ -74,7 +74,7 @@ public class MyClient1 {
 
                 jobID = Integer.parseInt(jobStatus[2]);
 
-                send("GETS Capable " + jobStatus[4] + jobStatus[5] + jobStatus[6]); // send GETS message
+                send("GETS Capable " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
 
                 // receive DATA nRecs recSize e.g. DATA 5 124
                 tempString = this.inputStream.readLine();
