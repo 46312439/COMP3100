@@ -10,7 +10,7 @@ public class MyClient1 {
     // initialise server and job ID variables
     int serverID = 0;
     int jobID = 0;
-    int nRecs = 0;
+    int nRecs;
     String serverMessage = "empty";
     String lastServerMessage = "empty";
     String tempString = "empty";
@@ -74,16 +74,23 @@ public class MyClient1 {
 
                 jobID = Integer.parseInt(jobStatus[2]);
 
+                send("GETS Avail " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
+
+                // receive DATA nRecs recSize e.g. DATA 5 124
+                tempString = this.inputStream.readLine();
+
+                String[] tempArray = tempString.split(" ");
+                nRecs = Integer.parseInt(tempArray[1]);
                    
-                if(nRecs == 0){
-                        send("GETS Avail " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
+                if(nRecs>0){
+                        // send("GETS Avail " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
 
-                        // receive DATA nRecs recSize e.g. DATA 5 124
-                        tempString = this.inputStream.readLine();
+                        // // receive DATA nRecs recSize e.g. DATA 5 124
+                        // tempString = this.inputStream.readLine();
 
-                        String[] tempArray = tempString.split(" ");
+                        // String[] tempArray = tempString.split(" ");
 
-                        nRecs = Integer.parseInt(tempArray[1]);
+                        // nRecs = Integer.parseInt(tempArray[1]);
 
                         // send OK
                         send("OK");
@@ -102,7 +109,7 @@ public class MyClient1 {
                         // send OK
                         send("OK");
                         // receive .
-                        System.out.println("Server Message: " + this.inputStream.readLine());
+                        serverMessage = this.inputStream.readLine();
 
                         send("SCHD " + jobID + " " + firstCapableServerType + " " + firstCapableServerID);
 
@@ -111,14 +118,17 @@ public class MyClient1 {
                     }
 
 
-                    else{
+                else{
 
-                        send("GETS Capable " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
+                    send("OK"); 
+                    serverMessage = this.inputStream.readLine();   
+                    send("GETS Capable " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
 
                         // receive DATA nRecs recSize e.g. DATA 5 124
                         tempString = this.inputStream.readLine();
 
-                        String[] tempArray = tempString.split(" ");
+                        tempArray = tempString.split(" ");
+                        // String[] tempArray = tempString.split(" ");
 
                         nRecs = Integer.parseInt(tempArray[1]);
 
