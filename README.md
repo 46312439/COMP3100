@@ -2,7 +2,7 @@
 repo for comp3100
 
 
-Added file for STAGE 2
+##Added file for STAGE 2
 
 MyClient1.java (add into the precompiled folder of ds-sim)
 
@@ -27,7 +27,7 @@ Then use the command python3 ./s2_demo.py "java MyClient1" -n  to run the tests
 
 
 
-Added file for STAGE 1
+##Added file for STAGE 1
 
 
 
