@@ -74,38 +74,90 @@ public class MyClient1 {
 
                 jobID = Integer.parseInt(jobStatus[2]);
 
-                send("GETS Capable " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
+                   
+                if(nRecs == 0){
+                        send("GETS Avail " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
 
-                // receive DATA nRecs recSize e.g. DATA 5 124
-                tempString = this.inputStream.readLine();
+                        // receive DATA nRecs recSize e.g. DATA 5 124
+                        tempString = this.inputStream.readLine();
 
-                String[] tempArray = tempString.split(" ");
+                        String[] tempArray = tempString.split(" ");
 
-                nRecs = Integer.parseInt(tempArray[1]);
+                        nRecs = Integer.parseInt(tempArray[1]);
 
-                // send OK
-                send("OK");
+                        // send OK
+                        send("OK");
 
-                serverMessage = this.inputStream.readLine();
+                        serverMessage = this.inputStream.readLine();
 
-                String[] serverInfo = serverMessage.split(" ");
+                        String[] serverInfo = serverMessage.split(" ");
 
-                firstCapableServerID = Integer.parseInt(serverInfo[1]);
-                firstCapableServerType = serverInfo[0];
+                        firstCapableServerID = Integer.parseInt(serverInfo[1]);
+                        firstCapableServerType = serverInfo[0];
 
-                for (int i = 0; i < nRecs - 1; i++) {
-                    serverMessage = this.inputStream.readLine();
-                }
+                        for (int i = 0; i < nRecs - 1; i++) {
+                            serverMessage = this.inputStream.readLine();
+                        }
 
-                // send OK
-                send("OK");
-                // receive .
-                System.out.println("Server Message: " + this.inputStream.readLine());
+                        // send OK
+                        send("OK");
+                        // receive .
+                        System.out.println("Server Message: " + this.inputStream.readLine());
 
-                send("SCHD " + jobID + " " + firstCapableServerType + " " + firstCapableServerID);
+                        send("SCHD " + jobID + " " + firstCapableServerType + " " + firstCapableServerID);
 
-                // OK
-                System.out.println("Server Message: " + this.inputStream.readLine());
+                        // OK
+                        System.out.println("Server Message: " + this.inputStream.readLine());
+                    }
+
+
+                    else{
+
+                        send("GETS Capable " + jobStatus[4] + " " + jobStatus[5] + " " + jobStatus[6]); // send GETS message
+
+                        // receive DATA nRecs recSize e.g. DATA 5 124
+                        tempString = this.inputStream.readLine();
+
+                        String[] tempArray = tempString.split(" ");
+
+                        nRecs = Integer.parseInt(tempArray[1]);
+
+                        // send OK
+                        send("OK");
+
+                        serverMessage = this.inputStream.readLine();
+
+                        String[] serverInfo = serverMessage.split(" ");
+
+                        firstCapableServerID = Integer.parseInt(serverInfo[1]);
+                        firstCapableServerType = serverInfo[0];
+
+                        for (int i = 0; i < nRecs - 1; i++) {
+                            serverMessage = this.inputStream.readLine();
+                        }
+
+                        // send OK
+                        send("OK");
+                        // receive .
+                        System.out.println("Server Message: " + this.inputStream.readLine());
+
+                        send("SCHD " + jobID + " " + firstCapableServerType + " " + firstCapableServerID);
+
+                        // OK
+                        System.out.println("Server Message: " + this.inputStream.readLine());
+
+
+
+
+
+
+
+
+                    }
+
+
+
+
             }
 
         }
